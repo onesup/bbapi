@@ -4,14 +4,27 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 gem 'rails-api'
-gem 'devise'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+group :development, :test do
+  gem 'rspec-rails'           # Test framework
+  gem 'database_cleaner'      # Clean database between tests
+  gem 'fabrication'           # Test object generation
+  gem 'shoulda'               # nice rspec matchers
+end
+
+gem 'devise'                   # server-side authentication
 
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby'              # password encryption
+
+# for easy RESTful API controller scaffolding
+gem 'inherited_resources'      
+
+# works out of the box with ember-data
+gem 'active_model_serializers' 
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
