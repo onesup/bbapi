@@ -1,4 +1,6 @@
 Bbapi::Application.routes.draw do
+  resources :income_categories,  except: [:new, :edit]
+  resources :outlay_categories,  except: [:new, :edit]
   resources :groups, except: [:new, :edit]
  # defaults: { :format => 'json' }
   devise_for(:users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" })
