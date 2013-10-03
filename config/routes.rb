@@ -1,5 +1,6 @@
 Bbapi::Application.routes.draw do
-  resources :items, except: [:new, :edit]
+  resources :income_items, except: [:new, :edit]
+  resources :outlay_items, except: [:new, :edit]
   resources :income_categories,  except: [:new, :edit]
   resources :outlay_categories,  except: [:new, :edit]
   resources :groups, except: [:new, :edit]
