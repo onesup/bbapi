@@ -9,11 +9,23 @@ gem 'rack-cors', :require => 'rack/cors'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-group :development, :test do
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
+
+group :test do
+  gem 'factory_girl', :require => false
+  gem 'factory_girl_rails', :require => false
+  gem 'database_cleaner', "=1.0.1"      # Clean database between tests
   gem 'rspec-rails'           # Test framework
-  gem 'database_cleaner'      # Clean database between tests
-  gem 'fabrication'           # Test object generation
   gem 'shoulda'               # nice rspec matchers
+end
+
+group :development, :test do
+  gem 'fabrication'           # Test object generation
+  gem 'spring'
+  gem 'guard-rspec'
 end
 
 gem 'devise'                   # server-side authentication
