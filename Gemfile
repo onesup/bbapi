@@ -40,6 +40,10 @@ gem 'bcrypt-ruby'              # password encryption
 # works out of the box with ember-data
 gem 'active_model_serializers' 
 
+
+gem 'coveralls', require: false
+
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
