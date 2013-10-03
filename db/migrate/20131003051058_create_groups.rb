@@ -3,7 +3,7 @@ class CreateGroups < ActiveRecord::Migration
     create_table :groups do |t|
       t.references :owner, index: true
       t.string :name
-      t.text :decription
+      t.text :description
 
       t.timestamps
     end

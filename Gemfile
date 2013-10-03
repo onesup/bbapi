@@ -35,7 +35,7 @@ gem 'devise'                   # server-side authentication
 gem 'bcrypt-ruby'              # password encryption
 
 # for easy RESTful API controller scaffolding
-gem 'inherited_resources'      
+# gem 'inherited_resources'      
 
 # works out of the box with ember-data
 gem 'active_model_serializers' 
