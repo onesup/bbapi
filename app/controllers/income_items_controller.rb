@@ -1,50 +1,56 @@
-class ItemsController < ApplicationController
-  # GET /items
-  # GET /items.json
+class IncomeItemsController < ApplicationController
+  # GET /income_items
+  # GET /income_items.json
   def index
-    @items = Item.all
+    @income_items = IncomeItem.all
 
-    render json: @items
+    render json: @income_items
   end
 
-  # GET /items/1
-  # GET /items/1.json
+  # GET /income_items/1
+  # GET /income_items/1.json
   def show
-    @item = Item.find(params[:id])
+    @income_item = IncomeItem.find(params[:id])
 
-    render json: @item
+    render json: @income_item
   end
 
-  # POST /items
-  # POST /items.json
+  # POST /income_items
+  # POST /income_items.json
   def create
-    @item = Item.new(params[:item])
+    @income_item = IncomeItem.new(income_item_params)
 
-    if @item.save
-      render json: @item, status: :created, location: @item
+    if @income_item.save
+      render json: @income_item, status: :created, location: @income_item
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: @income_item.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /items/1
-  # PATCH/PUT /items/1.json
+  # PATCH/PUT /income_items/1
+  # PATCH/PUT /income_items/1.json
   def update
-    @item = Item.find(params[:id])
+    @income_item = IncomeItem.find(params[:id])
 
-    if @item.update(params[:item])
+    if @income_item.update(income_item_params)
       head :no_content
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: @income_item.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /items/1
-  # DELETE /items/1.json
+  # DELETE /income_items/1
+  # DELETE /income_items/1.json
   def destroy
-    @item = Item.find(params[:id])
-    @item.destroy
+    @income_item = IncomeItem.find(params[:id])
+    @income_item.destroy
 
     head :no_content
+  end
+
+  private
+
+  def income_item_params
+    params.require(:income_item).permit(:category_id, :owner_id, :content, :amount, :issue_date)
   end
 end

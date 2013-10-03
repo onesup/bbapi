@@ -18,7 +18,7 @@ class OutlayItemsController < ApplicationController
   # POST /outlay_items
   # POST /outlay_items.json
   def create
-    @outlay_item = OutlayItem.new(params[:outlay_item])
+    @outlay_item = OutlayItem.new(outlay_item_params)
 
     if @outlay_item.save
       render json: @outlay_item, status: :created, location: @outlay_item
@@ -32,7 +32,7 @@ class OutlayItemsController < ApplicationController
   def update
     @outlay_item = OutlayItem.find(params[:id])
 
-    if @outlay_item.update(params[:outlay_item])
+    if @outlay_item.update(outlay_item_params)
       head :no_content
     else
       render json: @outlay_item.errors, status: :unprocessable_entity
@@ -46,5 +46,11 @@ class OutlayItemsController < ApplicationController
     @outlay_item.destroy
 
     head :no_content
+  end
+
+  private
+
+  def outlay_item_params
+    params.require(:outlay_item).permit(:category_id, :owner_id, :content, :amount, :issue_date)
   end
 end

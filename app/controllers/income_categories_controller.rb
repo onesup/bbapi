@@ -47,4 +47,11 @@ class IncomeCategoriesController < ApplicationController
 
     head :no_content
   end
+
+  private
+
+  def income_category_params
+    params.require(:income_category).permit(:owner_id, :name, :description)
+  end
+  
 end

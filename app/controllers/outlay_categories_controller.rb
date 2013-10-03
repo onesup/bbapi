@@ -18,7 +18,7 @@ class OutlayCategoriesController < ApplicationController
   # POST /outlay_categories
   # POST /outlay_categories.json
   def create
-    @outlay_category = OutlayCategory.new(params[:outlay_category])
+    @outlay_category = OutlayCategory.new(outlay_category_params)
 
     if @outlay_category.save
       render json: @outlay_category, status: :created, location: @outlay_category
@@ -32,7 +32,7 @@ class OutlayCategoriesController < ApplicationController
   def update
     @outlay_category = OutlayCategory.find(params[:id])
 
-    if @outlay_category.update(params[:outlay_category])
+    if @outlay_category.update(outlay_category_params)
       head :no_content
     else
       render json: @outlay_category.errors, status: :unprocessable_entity
@@ -47,4 +47,11 @@ class OutlayCategoriesController < ApplicationController
 
     head :no_content
   end
+
+  private
+
+  def outlay_category_params
+    params.require(:outlay_category).permit(:owner_id, :name, :description)
+  end
+  
 end
