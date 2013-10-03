@@ -15,6 +15,7 @@ group :development do
 end
 
 group :test do
+  gem 'coveralls', require: false
   gem 'factory_girl', :require => false
   gem 'factory_girl_rails', :require => false
   gem 'database_cleaner', "=1.0.1"      # Clean database between tests
