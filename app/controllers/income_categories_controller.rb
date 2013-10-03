@@ -18,7 +18,7 @@ class IncomeCategoriesController < ApplicationController
   # POST /income_categories
   # POST /income_categories.json
   def create
-    @income_category = IncomeCategory.new(params[:income_category])
+    @income_category = IncomeCategory.new(income_category_params)
 
     if @income_category.save
       render json: @income_category, status: :created, location: @income_category
@@ -32,7 +32,7 @@ class IncomeCategoriesController < ApplicationController
   def update
     @income_category = IncomeCategory.find(params[:id])
 
-    if @income_category.update(params[:income_category])
+    if @income_category.update(income_category_params)
       head :no_content
     else
       render json: @income_category.errors, status: :unprocessable_entity
