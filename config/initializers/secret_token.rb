@@ -17,3 +17,4 @@
 # to avoid deprecation warning.
 # Can be safely removed in a rails3 api-only application.
 Bbapi::Application.config.secret_token = 'dc3b33a83edf9a2c22803c3799597d36f9de28edd531b431f0cbbd26114cbf9b0711902ffd358bd2842ae60621d220abfe7a9783e2d1f464f2fef1b84ee83aac'
+Bbapi::Application.config.secret_key_base = '5690e76eff7d6450bd35ffefd250ae2297470389dbf180952c23a4bbaf3ebc8d0063961da2495890a060bf4435c79afc89c0a706c99f0e84a68ab77955df1ce2'
