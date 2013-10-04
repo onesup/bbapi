@@ -20,6 +20,7 @@ group :test do
   gem 'coveralls', require: false
   gem 'factory_girl', :require => false
   gem 'factory_girl_rails', :require => false
+  gem 'faker'
   gem 'database_cleaner', "=1.0.1"      # Clean database between tests
   gem 'rspec-rails'           # Test framework
   gem 'shoulda'               # nice rspec matchers

@@ -52,5 +52,8 @@ RSpec.configure do |config|
 
   # include Devise test helpers
   config.include Devise::TestHelpers, type: :controller
-  
+
+  # include Factory Girl syntax to simplify calls to factories
+  config.include FactoryGirl::Syntax::Methods
+
 end
