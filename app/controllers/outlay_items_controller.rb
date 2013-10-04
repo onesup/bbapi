@@ -51,6 +51,6 @@ class OutlayItemsController < ApplicationController
   private
 
   def outlay_item_params
-    params.require(:outlay_item).permit(:category_id, :owner_id, :content, :amount, :issue_date)
+    params.require(:outlay_item).permit(:category_id, :owner_id, :content, :amount, :issue_date, :tag_list)
   end
 end

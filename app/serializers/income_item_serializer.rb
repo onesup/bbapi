@@ -3,4 +3,5 @@ class IncomeItemSerializer < ActiveModel::Serializer
   has_one :owner
   has_one :category
   has_many :comments
+  has_many :tags
 end
