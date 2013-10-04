@@ -10,7 +10,7 @@ class Group < ActiveRecord::Base
   
   # 이미 등록된 유저인 경우 true 값을 반환함.
   def added?(user)
-    group_members.where( id: user.id ).first.present?
+    group_members.where( member_id: user.id ).first.present?
   end
 
   # 멤버유저 등록 (중복 유저인 경우 예외를 발생한다.)

@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+
+  before_action :set_group, except: [:index, :create]
   # GET /groups
   # GET /groups.json
   def index
@@ -10,8 +12,6 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    @group = Group.find(params[:id])
-
     render json: @group
   end
 
@@ -30,7 +30,6 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update
-    @group = Group.find(params[:id])
 
     if @group.update(params[:group])
       head :no_content
@@ -42,13 +41,39 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
-    @group = Group.find(params[:id])
     @group.destroy
 
     head :no_content
   end
 
-  private
+
+  # 멤버 추가하기
+  def add
+    user = User.find(params[:user_id])
+    if @group.added?(user)
+      render json: { success: 'failed', message: 'Already registered!' }
+    else
+      if @group.add! user
+        render json: user, status: :added, location: @group
+      else
+        render json: @group.errors, status: :unprocessable_entity
+      end
+    end
+  end
+
+  # 멤버 삭제하기
+  def remove
+    user = @group.members.find(params[:user_id])
+    @group.remove! user
+
+    head :no_content
+  end
+
+private
+
+  def set_group
+    @group = Group.find(params[:id])
+  end
 
   def group_params
     params.require(:group).permit(:owner_id, :name, :description)
