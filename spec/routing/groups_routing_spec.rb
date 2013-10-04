@@ -4,7 +4,7 @@ describe GroupsController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/groups").should route_to("groups#index", format: "json")
+      get("/groups").should route_to("groups#index")
     end
 
     # it "routes to #new" do
@@ -12,7 +12,7 @@ describe GroupsController do
     # end
 
     it "routes to #show" do
-      get("/groups/1").should route_to("groups#show", format: "json", :id => "1")
+      get("/groups/1").should route_to("groups#show", :id => "1")
     end
 
     # it "routes to #edit" do
@@ -20,15 +20,15 @@ describe GroupsController do
     # end
 
     it "routes to #create" do
-      post("/groups").should route_to("groups#create", format: "json")
+      post("/groups").should route_to("groups#create")
     end
 
     it "routes to #update" do
-      put("/groups/1").should route_to("groups#update", format: "json", :id => "1")
+      put("/groups/1").should route_to("groups#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/groups/1").should route_to("groups#destroy", format:"json", :id => "1")
+      delete("/groups/1").should route_to("groups#destroy", :id => "1")
     end
 
   end

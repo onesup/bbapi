@@ -4,8 +4,8 @@ Bbapi::Application.routes.draw do
   resources :income_categories,  except: [:new, :edit]
   resources :outlay_categories,  except: [:new, :edit]
   resources :groups, except: [:new, :edit]
- # defaults: { :format => 'json' }
   devise_for(:users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" })
+  # defaults: { :format => 'json' }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
