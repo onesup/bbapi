@@ -19,20 +19,42 @@ describe GroupsController do
   end
 
   describe "POST #create 액션" do
-    it ": 새 그룹을 데이터베이스에 저장함." do
-      expect{ 
-        post :create, group: attributes_for(:group, group_attributes: build(:group))
-      }.to change(Group, :count).by(1)
+
+    context '> 데이터가 유효한 경우' do
+      it ": 새 그룹을 데이터베이스에 저장함." do
+        expect{ 
+          post :create, group: attributes_for(:group)
+        }.to change(Group, :count).by(1)
+      end
+    end
+
+    context '> 데이터가 유효하지 않은 경우' do
+      it ': 새 그룹이 데이터베이스에 저장되지 않음' do
+        expect{ 
+          post :create, group: attributes_for(:invalid_group)
+        }.to change(Group, :count).by(0)
+      end
     end
   end
 
   describe "PATCH #update 액션" do
     before :each do 
-      @group = create(:group)
+      @group = create(:group, owner_id: 1, name: 'Group1', description: 'Group1 description')
     end
-    it ": 특정 그룹의 변경내용을 데이터베이스에 저장함" do
-      patch :update, id: @group, group: attributes_for(:group)
-      expect(assigns(:group)).to eq(@group)
+    context '> 데이터가 유효한 경우' do
+      it ": 특정 그룹의 변경내용을 데이터베이스에 저장함" do
+        patch :update, id: @group, group: attributes_for(:group)
+        expect(assigns(:group)).to eq(@group)
+      end
+    end
+    context '> 데이터가 유효하지 않은 경우' do
+      it ': 특정 그룹의 변경내용을 데이터베이스에 저장하지 않음' do
+        patch :update, id: @group, group: attributes_for(:group,
+            owner_id: nil, name: "GroupX", description: nil)
+        @group.reload
+        expect(@group.name).to_not eq("GroupX")
+        expect(@group.owner_id).to eq(1)
+      end
     end
   end
 
