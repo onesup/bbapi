@@ -71,4 +71,9 @@ describe GroupsController do
     end
   end
 
+  describe 'GET #list_members 액션' do
+    it '* 가입된 멤버가 없는 경우 에러를 표시함'
+    it "* 해당 그룹의 모든 멤버를 보여 줌" 
+    
+  end
 end

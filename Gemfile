@@ -12,8 +12,8 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'sqlite3'
 
 group :development do
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
@@ -21,7 +21,7 @@ group :test do
   gem 'factory_girl', :require => false
   gem 'factory_girl_rails', :require => false
   gem 'faker'
-  gem 'database_cleaner', "=1.0.1"      # Clean database between tests
+  gem 'database_cleaner', '=1.0.1' # Clean database between tests
   gem 'rspec-rails'           # Test framework
   gem 'shoulda'               # nice rspec matchers
 end
@@ -30,6 +30,7 @@ group :development, :test do
   gem 'fabrication'           # Test object generation
   gem 'spring'
   gem 'guard-rspec'
+  gem 'growl_notify'
 end
 
 gem 'devise'                   # server-side authentication
