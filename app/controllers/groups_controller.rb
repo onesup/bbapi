@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1.json
   def update
 
-    if @group.update(params[:group])
+    if @group.update(group_params)
       head :no_content
     else
       render json: @group.errors, status: :unprocessable_entity
