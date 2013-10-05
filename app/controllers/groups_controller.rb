@@ -49,16 +49,14 @@ class GroupsController < ApplicationController
 
   # 멤버 추가하기
   def add
-    user = User.find(params[:user_id])
-    if @group.added?(user)
-      render json: { success: 'failed', message: 'Already registered!' }
+    @user = User.find(params[:user_id])
+
+    if @group.add! @user
+      render json: @user, status: :created, location: @group
     else
-      if @group.add! user
-        render json: user, status: :added, location: @group
-      else
-        render json: @group.errors, status: :unprocessable_entity
-      end
+      render json: @group.errors, status: :unprocessable_entity
     end
+
   end
 
   # 멤버 삭제하기
