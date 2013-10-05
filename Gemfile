@@ -30,7 +30,6 @@ group :development, :test do
   gem 'fabrication'           # Test object generation
   gem 'spring'
   gem 'guard-rspec'
-  gem 'growl_notify'
 end
 
 gem 'devise'                   # server-side authentication
