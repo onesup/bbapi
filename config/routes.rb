@@ -1,4 +1,5 @@
-Bbapi::Application.routes.draw do
+Bbapi::Application.routes.draw do  
+  resources :comments, except: [:index, :new, :edit]
   resources :income_items, except: [:new, :edit]
   resources :outlay_items, except: [:new, :edit]
   resources :income_categories,  except: [:new, :edit]
