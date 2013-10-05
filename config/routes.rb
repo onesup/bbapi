@@ -6,6 +6,7 @@ Bbapi::Application.routes.draw do
   resources :groups, except: [:new, :edit]
   get 'groups/:id/users/:user_id/add' => 'groups#add'
   get 'groups/:id/users/:user_id/remove' => 'groups#remove'
+  get 'groups/:id/members' => 'groups#list_members'
   devise_for(:users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" })
   # defaults: { :format => 'json' }
   # The priority is based upon order of creation: first created -> highest priority.

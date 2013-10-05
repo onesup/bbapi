@@ -69,6 +69,13 @@ class GroupsController < ApplicationController
     head :no_content
   end
 
+  # 멤버리스트 보기
+  def list_members
+    @members = @group.members
+
+    render json: @members
+  end
+
 private
 
   def set_group
