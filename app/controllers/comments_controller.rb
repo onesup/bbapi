@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
   def show
-    @comment = comment.find(params[:id])
+    @comment = Comment.find(params[:id])
     render json: @comment
   end
 
@@ -16,9 +16,20 @@ class CommentsController < ApplicationController
   end
 
   def update
+    @comment = Comment.find(params[:id])
+
+    if @comment.update(comment_params)
+      head :no_content
+    else
+      render json: @comment.errors, status: :unprocessable_entity
+    end  	
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+
+    head :no_content  	
   end
 
   private
