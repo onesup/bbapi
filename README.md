@@ -12,3 +12,22 @@ BudgetBook API Application
 * Coding Note : https://docs.google.com/document/d/1hK0JxMtb3iIEi9nV9zeb4twrV3Hw6y_sNQlNzt11KJE/edit?usp=sharing
 
 
+
+
+## 기초 데이터 셋팅 방법
+
+1.migrate 후 rake db:seed 명령 실행
+
+```
+$ rake db:migrate
+$ rake db:seed
+```
+2.rake db:reset 명령으로 한번에 실행
+
+```
+$ rake db:reset
+```
+
+
+
+
