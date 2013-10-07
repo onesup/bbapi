@@ -1,4 +1,5 @@
 Bbapi::Application.routes.draw do  
+  resources :bookkeepings, except: [:new, :edit]
   resources :account_titles, except: [:new, :edit]
   resources :account_categories, except: [:new, :edit]
   resources :comments, except: [:index, :new, :edit]
