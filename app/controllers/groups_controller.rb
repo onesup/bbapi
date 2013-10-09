@@ -1,12 +1,11 @@
 class GroupsController < ApplicationController
-
+  before_filter :authenticate_user!
   before_action :set_group, except: [:index, :create]
+  
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
-
-    render json: @groups
+    render json: current_user.membered_groups
   end
 
   # GET /groups/1
