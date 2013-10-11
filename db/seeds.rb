@@ -15,6 +15,14 @@ users.each do |user|
 	GroupMember.create({ group: group, member: user })
 end
 
+account_categories = AccountCategory.create([
+  { name: '자산'},
+  { name: '자산'},
+  { name: '자산'},
+  { name: '자산'},
+  { name: '자산'},
+])
+
 income_categories = IncomeCategory.create([
 	{ name: '용돈', description: '용돈', owner: user}, 
 	{ name: '월급', description: '월급', owner: user}, 
