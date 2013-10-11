@@ -8,7 +8,7 @@ class Users::SessionsController < Devise::SessionsController
 
     if resource.valid_password?(params[:password])
       sign_in(:user, resource)
-      resource.ensure_authentication_token!
+      resource.ensure_authentication_token
       render :json=> {:success=>true, :auth_token=>resource.authentication_token, :email=>resource.email, :id=>resource.id}
       return
     end
