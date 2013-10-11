@@ -1,12 +1,11 @@
 class GroupsController < ApplicationController
-
+  before_filter :authenticate_user!
   before_action :set_group, except: [:index, :create]
+  
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
-
-    render json: @groups
+    render json: current_user.membered_groups
   end
 
   # GET /groups/1
@@ -19,8 +18,11 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(group_params)
+    @group.owner = current_user
 
     if @group.save
+      @group.add!(current_user)
+      
       render json: @group, status: :created, location: @group
     else
       render json: @group.errors, status: :unprocessable_entity
@@ -81,7 +83,7 @@ private
   end
 
   def group_params
-    params.require(:group).permit(:owner_id, :name, :description)
+    params.require(:group).permit(:name, :description)
   end
   
 end
