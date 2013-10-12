@@ -1,4 +1,5 @@
 Bbapi::Application.routes.draw do  
+  resources :monthly_balances, except: [:new, :edit]
   resources :bookkeepings, except: [:new, :edit]
   resources :account_titles, except: [:new, :edit]
   resources :account_categories, except: [:new, :edit]
