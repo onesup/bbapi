@@ -32,5 +32,11 @@ module Bbapi
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+
+    # https://github.com/rails-api/rails-api#other-middlewares
+    # Supports the cookie method
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+
   end
 end

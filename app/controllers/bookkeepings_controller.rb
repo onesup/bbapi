@@ -18,7 +18,7 @@ class BookkeepingsController < ApplicationController
   # POST /bookkeepings
   # POST /bookkeepings.json
   def create
-    @bookkeeping = Bookkeeping.new(params[:bookkeeping])
+    @bookkeeping = Bookkeeping.new(bookkeeping_params)
 
     if @bookkeeping.save
       render json: @bookkeeping, status: :created, location: @bookkeeping
@@ -32,7 +32,7 @@ class BookkeepingsController < ApplicationController
   def update
     @bookkeeping = Bookkeeping.find(params[:id])
 
-    if @bookkeeping.update(params[:bookkeeping])
+    if @bookkeeping.update(bookkeeping_params)
       head :no_content
     else
       render json: @bookkeeping.errors, status: :unprocessable_entity
@@ -46,5 +46,11 @@ class BookkeepingsController < ApplicationController
     @bookkeeping.destroy
 
     head :no_content
+  end
+
+  private
+
+  def bookkeeping_params
+    params.require(:bookkeeping).permit(:issue_date, :issuer_id, :operator, :account_title_id, :remark, :amount)
   end
 end

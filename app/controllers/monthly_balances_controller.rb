@@ -1,4 +1,7 @@
 class MonthlyBalancesController < ApplicationController
+
+  before_filter :authenticate_user!
+
   # GET /monthly_balances
   # GET /monthly_balances.json
   def index

@@ -1,4 +1,4 @@
 class Bookkeeping < ActiveRecord::Base
-  belongs_to :issuer
+  belongs_to :issuer, class_name: 'User'
   belongs_to :account_title
 end
