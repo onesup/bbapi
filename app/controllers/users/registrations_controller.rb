@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-
+  wrap_parameters User
   respond_to :json
 
   def create
