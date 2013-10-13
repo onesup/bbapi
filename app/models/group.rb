@@ -3,6 +3,7 @@ class Group < ActiveRecord::Base
   has_many :group_members, dependent: :destroy
   has_many :members, through: :group_members
   has_many :monthly_balances, dependent: :destroy
+  has_many :bookkeepings, dependent: :destroy
 
   # 유효성 검증 => owner_id 는 필수항목임
   validates_presence_of :owner_id
