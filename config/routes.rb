@@ -14,6 +14,8 @@ Bbapi::Application.routes.draw do
   get 'groups/:id/users/:user_id/add' => 'groups#add'
   get 'groups/:id/users/:user_id/remove' => 'groups#remove'
   get 'groups/:id/members' => 'groups#list_members'
+  get 'groups/:group_id/bookkeepings/:start_date/:end_date/calculate' => 'bookkeepings#calculate'
+  get 'groups/:group_id/bookkeepings/:start_date/:end_date' => 'bookkeepings#term'
   devise_for(:users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" })
   # defaults: { :format => 'json' }
   # The priority is based upon order of creation: first created -> highest priority.

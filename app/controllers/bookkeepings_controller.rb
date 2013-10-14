@@ -1,6 +1,6 @@
 class BookkeepingsController < ApplicationController
 
-  before_action :set_group, only: [:index, :create]
+  before_action :set_group, only: [:index, :create, :calculate]
   before_action :set_bookkeeping, only: [:show, :update, :destroy]
   # GET /bookkeepings
   # GET /bookkeepings.json
@@ -21,7 +21,7 @@ class BookkeepingsController < ApplicationController
   # POST /bookkeepings.json
   def create
     @bookkeeping = @group.bookkeepings.new(bookkeeping_params)
-
+    @bookkeeping.writer_id = current_user.id
     if @bookkeeping.save
       render json: @bookkeeping, status: :created, location: @bookkeeping
     else
@@ -46,6 +46,24 @@ class BookkeepingsController < ApplicationController
     @bookkeeping.destroy
 
     head :no_content
+  end
+
+  def calculate
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+    income = Group.find(params[:group_id]).bookkeepings.where("issue_date between ? and ?", start_date, end_date).where("operator = '+'").sum('amount')    
+    outlay = Group.find(params[:group_id]).bookkeepings.where("issue_date between ? and ?", start_date, end_date).where("operator = '-'").sum('amount')    
+    total = income - outlay
+
+    render json: { income: income, outlay: outlay, total: total }
+  end
+
+  def term
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+    bookkeepings = Group.find(params[:group_id]).bookkeepings.where("issue_date between ? and ?", start_date, end_date)   
+
+    render json: bookkeepings
   end
 
   private

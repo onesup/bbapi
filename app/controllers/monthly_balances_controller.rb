@@ -22,6 +22,7 @@ class MonthlyBalancesController < ApplicationController
   # POST /monthly_balances.json
   def create
     @monthly_balance = MonthlyBalance.new(monthly_balance_params)
+    @monthly_balance.writer_id = current_user.id
 
     if @monthly_balance.save
       render json: @monthly_balance, status: :created, location: @monthly_balance
