@@ -1,8 +1,11 @@
 class BookkeepingsController < ApplicationController
+
+  before_action :set_group, only: [:index, :create]
+  before_action :set_bookkeeping, only: [:show, :update, :destroy]
   # GET /bookkeepings
   # GET /bookkeepings.json
   def index
-    @bookkeepings = Bookkeeping.all
+    @bookkeepings = @group.bookkeepings.order(created_at: :desc)
 
     render json: @bookkeepings
   end
@@ -10,7 +13,6 @@ class BookkeepingsController < ApplicationController
   # GET /bookkeepings/1
   # GET /bookkeepings/1.json
   def show
-    @bookkeeping = Bookkeeping.find(params[:id])
 
     render json: @bookkeeping
   end
@@ -18,7 +20,7 @@ class BookkeepingsController < ApplicationController
   # POST /bookkeepings
   # POST /bookkeepings.json
   def create
-    @bookkeeping = Bookkeeping.new(bookkeeping_params)
+    @bookkeeping = @group.bookkeepings.new(bookkeeping_params)
 
     if @bookkeeping.save
       render json: @bookkeeping, status: :created, location: @bookkeeping
@@ -30,7 +32,6 @@ class BookkeepingsController < ApplicationController
   # PATCH/PUT /bookkeepings/1
   # PATCH/PUT /bookkeepings/1.json
   def update
-    @bookkeeping = Bookkeeping.find(params[:id])
 
     if @bookkeeping.update(bookkeeping_params)
       head :no_content
@@ -42,7 +43,6 @@ class BookkeepingsController < ApplicationController
   # DELETE /bookkeepings/1
   # DELETE /bookkeepings/1.json
   def destroy
-    @bookkeeping = Bookkeeping.find(params[:id])
     @bookkeeping.destroy
 
     head :no_content
@@ -50,7 +50,16 @@ class BookkeepingsController < ApplicationController
 
   private
 
+  def set_group
+    @group = Group.find(params[:group_id])
+  end
+
+  def set_bookkeeping
+    @group = Group.find(params[:group_id])
+    @bookkeeping = @group.bookkeepings.find(params[:id])
+  end
+
   def bookkeeping_params
-    params.require(:bookkeeping).permit(:issue_date, :issuer_id, :operator, :account_title_id, :remark, :amount)
+    params.require(:bookkeeping).permit(:group_id, :issue_date, :issuer_id, :operator, :account_title_id, :remark, :amount, :content)
   end
 end

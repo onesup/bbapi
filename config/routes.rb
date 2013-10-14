@@ -8,7 +8,9 @@ Bbapi::Application.routes.draw do
   resources :outlay_items, except: [:new, :edit]
   resources :income_categories,  except: [:new, :edit]
   resources :outlay_categories,  except: [:new, :edit]
-  resources :groups, except: [:new, :edit]
+  resources :groups, except: [:new, :edit] do
+    resources :bookkeepings
+  end
   get 'groups/:id/users/:user_id/add' => 'groups#add'
   get 'groups/:id/users/:user_id/remove' => 'groups#remove'
   get 'groups/:id/members' => 'groups#list_members'

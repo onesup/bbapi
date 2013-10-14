@@ -12,7 +12,7 @@ module Bbapi
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :delete, :put, :options]
+        resource '*', :headers => :any, :methods => [:get, :post, :delete, :put, :patch, :options]
       end
     end
 
