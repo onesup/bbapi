@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :membered_groups, class_name: 'Group', through: :group_members, source: :group
   has_many :created_groups, class_name: 'Group', foreign_key: :owner_id, dependent: :nullify         
   has_many :categories, foreign_key: :owner_id, dependent: :nullify
+  has_many :bookkeepings_issued_by_me, class_name: 'Bookkeeping', foreign_key: 'issuer_id'
+  has_many :bookkeepings_written_by_me, class_name: 'Bookkeeping', foreign_key: 'writer_id'
   
   before_save :ensure_authentication_token
   
