@@ -7,6 +7,13 @@ class BookkeepingsController < ApplicationController
   def index
     @bookkeepings = @group.bookkeepings.order(created_at: :desc)
 
+    if params[:start_date]
+      @bookkeepings = @bookkeepings.where("issue_date >= ?", params[:start_date])
+    end
+    if params[:end_date]
+      @bookkeepings = @bookkeepings.where("issue_date < ?", Date.parse(params[:end_date]) + 1.day)
+    end
+
     render json: @bookkeepings
   end
 
@@ -56,14 +63,6 @@ class BookkeepingsController < ApplicationController
     total = income - outlay
 
     render json: { income: income, outlay: outlay, total: total }
-  end
-
-  def term
-    start_date = params[:start_date]
-    end_date = params[:end_date]
-    bookkeepings = Group.find(params[:group_id]).bookkeepings.where("issue_date between ? and ?", start_date, end_date)   
-
-    render json: bookkeepings
   end
 
   private
