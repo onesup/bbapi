@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 gem 'acts-as-taggable-on'
+gem 'paperclip'
 
 gem 'rails-api'
 gem 'rack-cors', :require => 'rack/cors'
