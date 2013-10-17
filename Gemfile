@@ -34,6 +34,11 @@ group :development, :test do
 end
 
 gem 'devise'                   # server-side authentication
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-github'
+
+gem 'dotenv-rails', groups: [:development, :test]
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby'              # password encryption
