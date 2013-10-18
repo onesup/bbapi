@@ -28,6 +28,13 @@ $ rake db:seed
 $ rake db:reset
 ```
 
+## auth 연동 정보
+root directory에 .env 파일을 생성하고 아래와 같이 정의해야 함.(실제 값은 코딩 노트 참고)
+```
+FACEBOOK_KEY=XXXXXXXXXXXXXXX
+FACEBOOK_SECRET=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
 
 
 
