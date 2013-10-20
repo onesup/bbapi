@@ -19,12 +19,20 @@ class User < ActiveRecord::Base
   # https://gist.github.com/josevalim/fb706b1e933ef01e4fb6
 
   def self.from_omniauth(auth, signed_in_resource=nil)    
-    user = find_or_create_by(email: auth.info.email) do |user|                  
+    user = find_or_create_by(email: authinfo.email) do |user|                  
       # Authorization.create(provider: auth[:provider], uid: auth[:uid], user_id: user.id)        
       # user.name = auth.info.nickname
       user.password = Devise.friendly_token[0,20]       
     end    
     Authorization.find_or_create_by(provider: auth[:provider], uid: auth[:uid], user: user)
+    user
+  end
+
+  def self.from_authinfo(authinfo)
+    user = find_or_create_by(email: authinfo[:email]) do |user|
+      user.password = Devise.friendly_token[0,20]
+    end
+    Authorization.find_or_create_by(provider: 'facebook', uid: authinfo[:uid], user: user)
     user
   end
 
