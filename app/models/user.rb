@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     user = find_or_create_by(email: authinfo[:email]) do |user|
       user.password = Devise.friendly_token[0,20]
     end
-    Authorization.find_or_create_by(provider: 'facebook', uid: authinfo[:uid], user: user)
+    Authorization.find_or_create_by(provider: authinfo[:provider], uid: authinfo[:uid], user: user)
     user
   end
 
