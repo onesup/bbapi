@@ -17,3 +17,5 @@
 Gemfile.lock
 /db/schema.rb
 /coverage
+
+/public/system

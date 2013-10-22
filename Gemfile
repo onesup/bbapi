@@ -8,6 +8,7 @@ gem 'paperclip'
 
 gem 'rails-api'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'coderay', '=1.0.9'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -23,14 +24,15 @@ group :test do
   gem 'factory_girl_rails', :require => false
   gem 'faker'
   gem 'database_cleaner', '=1.0.1' # Clean database between tests
-  gem 'rspec-rails'           # Test framework
+  gem 'rspec-rails'       # Test framework
   gem 'shoulda'               # nice rspec matchers
 end
 
 group :development, :test do
   gem 'fabrication'           # Test object generation
   gem 'spring'
-  gem 'guard-rspec'
+  gem 'guard', '~> 2'
+  gem 'guard-rspec',require: false
 end
 
 gem 'devise'                   # server-side authentication

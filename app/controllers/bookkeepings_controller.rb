@@ -29,6 +29,7 @@ class BookkeepingsController < ApplicationController
   def create
     @bookkeeping = @group.bookkeepings.new(bookkeeping_params)
     @bookkeeping.writer_id = current_user.id
+    @bookkeeping.proofs.build
     if @bookkeeping.save
       render json: @bookkeeping, status: :created, location: @bookkeeping
     else
@@ -39,7 +40,7 @@ class BookkeepingsController < ApplicationController
   # PATCH/PUT /bookkeepings/1
   # PATCH/PUT /bookkeepings/1.json
   def update
-
+    @bookkeeping.proofs.build
     if @bookkeeping.update(bookkeeping_params)
       head :no_content
     else
@@ -77,6 +78,6 @@ class BookkeepingsController < ApplicationController
   end
 
   def bookkeeping_params
-    params.require(:bookkeeping).permit(:group_id, :issue_date, :issuer_id, :operator, :account_title_id, :remark, :amount, :content)
+    params.require(:bookkeeping).permit(:group_id, :issue_date, :issuer_id, :operator, :account_title_id, :remark, :amount, :content,proofs_attributes: [ :bookkeeping_id, :title, :description, :picture ])
   end
 end
