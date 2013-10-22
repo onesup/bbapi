@@ -21,6 +21,7 @@ class AccountTitlesController < ApplicationController
   # POST /account_titles.json
   def create
     @account_title = AccountTitle.new(account_title_params)
+    @account_title.owner = current_user
 
     if @account_title.save
       render json: @account_title, status: :created, location: @account_title
@@ -55,6 +56,6 @@ class AccountTitlesController < ApplicationController
   end
 
   def account_title_params
-    params.require(:account_title).permit(:owner_id, :account_category_id, :title)
+    params.require(:account_title).permit(:account_category_id, :title)
   end
 end
