@@ -17,9 +17,8 @@
 Gemfile.lock
 /db/schema.rb
 /coverage
-<<<<<<< HEAD
+
 .env
-=======
 
 /public/system
->>>>>>> paperclip
+
