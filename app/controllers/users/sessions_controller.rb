@@ -19,6 +19,7 @@ class Users::SessionsController < Devise::SessionsController
       :success=>true, 
       :auth_token=>resource.authentication_token, 
       :email=>resource.email, 
+      :username=>resource.username, 
       :id=>resource.id,
       :provider => params[:provider]
     }    
