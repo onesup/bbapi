@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   has_many :bookkeepings_written_by_me, class_name: 'Bookkeeping', foreign_key: 'writer_id'
   has_many :authorizations
   
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/default/:style_avatar.png"
+
   before_save :ensure_authentication_token
   
   # token_authenticable is deprecated
