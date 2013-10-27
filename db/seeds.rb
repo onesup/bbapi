@@ -6,7 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-users = User.create([{ email: 'tester1@bbapi.com', password: '12341234'}, { email: 'tester2@bbapi.com', password: '12341234'}])
+users = User.create([
+    { email: 'tester1@bbapi.com', password: '12341234', username: 'tester1'}, 
+    { email: 'tester2@bbapi.com', password: '12341234', username: 'tester2'}
+  ])
 user = users[0]
 
 group = Group.create({ name: 'babi group', description: 'babi group', owner: user})
