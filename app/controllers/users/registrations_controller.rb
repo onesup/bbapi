@@ -35,6 +35,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def add_avatar
+    current_user.avatar = params[:file]
+    if current_user.save
+      render :json => {
+        :avatar_url => {
+          :original => current_user.avatar.url,
+          :medium   => current_user.avatar.url(:medium),
+          :thumb    => current_user.avatar.url(:thumb)
+        }
+      }
+    else
+      render json: {}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def user_params
