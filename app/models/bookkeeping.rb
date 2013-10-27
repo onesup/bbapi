@@ -10,5 +10,5 @@ class Bookkeeping < ActiveRecord::Base
   validates :writer_id, presence: true
 
   accepts_nested_attributes_for :proofs
-
+  
 end
