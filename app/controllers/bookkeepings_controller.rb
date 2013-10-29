@@ -68,13 +68,7 @@ class BookkeepingsController < ApplicationController
   def add_proof
     proof = @bookkeeping.proofs.build picture: params[:file]
     if proof.save
-      render :json => {
-        :picture_url => {
-          :original => proof.picture.url,
-          :medium   => proof.picture.url(:medium),
-          :thumb    => proof.picture.url(:thumb)
-        }
-      }
+      render :json => proof
     else
       render json: {}, status: :unprocessable_entity
     end
