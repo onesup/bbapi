@@ -28,7 +28,6 @@ class BookkeepingsController < ApplicationController
   # POST /bookkeepings.json
   def create
     @bookkeeping = @group.bookkeepings.new()
-    @bookkeeping.proofs.build
     @bookkeeping.attributes = bookkeeping_params
     @bookkeeping.writer_id = current_user.id
     if @bookkeeping.save
@@ -41,7 +40,6 @@ class BookkeepingsController < ApplicationController
   # PATCH/PUT /bookkeepings/1
   # PATCH/PUT /bookkeepings/1.json
   def update
-    @bookkeeping.proofs.build
     if @bookkeeping.update(bookkeeping_params)
       head :no_content
     else
