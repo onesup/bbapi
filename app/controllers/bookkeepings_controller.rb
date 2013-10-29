@@ -1,7 +1,7 @@
 class BookkeepingsController < ApplicationController
 
   before_action :set_group, only: [:index, :create, :calculate]
-  before_action :set_bookkeeping, only: [:show, :update, :destroy]
+  before_action :set_bookkeeping, only: [:show, :update, :destroy, :add_proof]
   # GET /bookkeepings
   # GET /bookkeepings.json
   def index
@@ -67,6 +67,21 @@ class BookkeepingsController < ApplicationController
     render json: { income: income, outlay: outlay, total: total }
   end
 
+  def add_proof
+    proof = @bookkeeping.proofs.build picture: params[:file]
+    if proof.save
+      render :json => {
+        :picture_url => {
+          :original => proof.picture.url,
+          :medium   => proof.picture.url(:medium),
+          :thumb    => proof.picture.url(:thumb)
+        }
+      }
+    else
+      render json: {}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_group
@@ -79,7 +94,6 @@ class BookkeepingsController < ApplicationController
   end
 
   def bookkeeping_params
-    params.require(:bookkeeping).permit(:group_id, :issue_date, :issuer_id, :operator, :account_title_id, :remark, :amount, :content, 
-      proofs_attributes: [ :bookkeeping_id, :title, :description, :picture ])
+    params.require(:bookkeeping).permit(:group_id, :issue_date, :issuer_id, :operator, :account_title_id, :remark, :amount, :content, :proofs)
   end
 end

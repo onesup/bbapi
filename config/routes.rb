@@ -8,6 +8,7 @@ Bbapi::Application.routes.draw do
     get 'list_members', on: :member
     resources :bookkeepings do 
       get 'calculate',  on: :collection
+      post 'add_proof',  on: :member
     end
   end
   get 'groups/:id/users/:user_id/add' => 'groups#add'
