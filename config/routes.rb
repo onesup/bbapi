@@ -11,8 +11,8 @@ Bbapi::Application.routes.draw do
       post 'add_proof',  on: :member
     end
   end
-  get 'groups/:id/users/:user_id/add' => 'groups#add'
-  get 'groups/:id/users/:user_id/remove' => 'groups#remove'
+  post 'groups/:id/users/:user_id' => 'groups#add'
+  delete 'groups/:id/users/:user_id' => 'groups#remove'
   resources :users, only: [:index], :controller => 'users/users' do
     collection do
       get 'search'
