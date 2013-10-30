@@ -12,6 +12,11 @@ Bbapi::Application.routes.draw do
   end
   get 'groups/:id/users/:user_id/add' => 'groups#add'
   get 'groups/:id/users/:user_id/remove' => 'groups#remove'
+  resources :users, only: [:index], :controller => 'users/users' do
+    collection do
+      get 'search'
+    end    
+  end
 
   # get 'groups/:id/members' => 'groups#list_members'
   # get 'groups/:group_id/bookkeepings/:start_date/:end_date/calculate' => 'bookkeepings#calculate'
