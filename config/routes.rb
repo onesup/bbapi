@@ -3,11 +3,12 @@ Bbapi::Application.routes.draw do
   resources :bookkeepings, except: [:new, :edit]
   resources :account_titles, except: [:new, :edit]
   resources :account_categories, except: [:new, :edit]
-  resources :comments, except: [:index, :new, :edit]
+  # resources :comments, except: [:index, :new, :edit]
   resources :groups, except: [:new, :edit] do
     get 'list_members', on: :member
     resources :bookkeepings do 
       get 'calculate',  on: :collection
+      post 'add_proof',  on: :member
     end
   end
   get 'groups/:id/users/:user_id/add' => 'groups#add'
@@ -17,6 +18,11 @@ Bbapi::Application.routes.draw do
       get 'search'
     end    
   end
+
+
+  post 'groups/:group_id/:commentable_type/:commentable_id/comments' => 'comments#create'
+  delete 'groups/:group_id/:commentable_type/:commentable_id/comments/:comment_id' => 'comments#destroy'
+
 
   # get 'groups/:id/members' => 'groups#list_members'
   # get 'groups/:group_id/bookkeepings/:start_date/:end_date/calculate' => 'bookkeepings#calculate'

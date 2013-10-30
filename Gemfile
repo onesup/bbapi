@@ -5,6 +5,7 @@ gem 'rails', '4.0.0'
 
 gem 'acts-as-taggable-on'
 gem 'paperclip'
+gem 'aws-sdk', '~> 1.5.7'
 
 gem 'rails-api'
 gem 'rack-cors', :require => 'rack/cors'

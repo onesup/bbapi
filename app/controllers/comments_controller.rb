@@ -1,18 +1,22 @@
 class CommentsController < ApplicationController
 
+  before_action :set_commentable
+  before_action :set_comment, only: [:show, :update, :destroy]
+  before_filter :authenticate_user!
+
   def show
     @comment = Comment.find(params[:id])
     render json: @comment
   end
 
   def create
-    @commentable = comment_params[:commentable_type].classify.constantize.send('find',comment_params[:commentable_id])
     @comment = @commentable.comments.build(comment_params)
+    @comment.writer = current_user
     if @comment.save
-      render json: @comment, status: :created, location: @comment
+      render json: @comment, status: :created
     else
       render json: @comment.errors, status: :unprocessable_entity
-    end    
+    end
   end
 
   def update
@@ -26,15 +30,22 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
 
-    head :no_content  	
+    head :no_content	
   end
 
   private
 
+  def set_commentable
+    @commentable = params[:commentable_type].classify.constantize.send('find', params[:commentable_id])
+  end
+
+  def set_comment
+    @comment = @commentable.comments.find(params[:comment_id])
+  end
+
   def comment_params
-    params.require(:comment).permit(:content, :writer_id, :commentable_id, :commentable_type)
+    params.require(:comment).permit(:content)
   end  
 end

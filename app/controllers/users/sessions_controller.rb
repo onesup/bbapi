@@ -15,11 +15,17 @@ class Users::SessionsController < Devise::SessionsController
 
     sign_in(:user, resource)
     resource.ensure_authentication_token
-    render :json=> {
-      :success=>true, 
-      :auth_token=>resource.authentication_token, 
-      :email=>resource.email, 
-      :id=>resource.id,
+    render :json => {
+      :success => true, 
+      :auth_token => resource.authentication_token, 
+      :email => resource.email, 
+      :username => resource.username, 
+      :id => resource.id,
+      :avatar_url => {
+        :original => resource.avatar.url,
+        :medium   => resource.avatar.url(:medium),
+        :thumb    => resource.avatar.url(:thumb)
+      },
       :provider => params[:provider]
     }    
         
