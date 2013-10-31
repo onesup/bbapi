@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :bookkeepings_issued_by_me, class_name: 'Bookkeeping', foreign_key: 'issuer_id'
   has_many :bookkeepings_written_by_me, class_name: 'Bookkeeping', foreign_key: 'writer_id'
   has_many :authorizations
+  has_many :proofs, dependent: :destroy
 
   has_attached_file :avatar, 
                     :styles => { :medium => "300x300#", :thumb => "100x100#" }, 

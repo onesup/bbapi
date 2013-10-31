@@ -1,7 +1,7 @@
 class BookkeepingsController < ApplicationController
 
   before_action :set_group, only: [:index, :create, :calculate]
-  before_action :set_bookkeeping, only: [:show, :update, :destroy, :add_proof]
+  before_action :set_bookkeeping, only: [:show, :update, :destroy, :add_proof, :remove_proof]
   # GET /bookkeepings
   # GET /bookkeepings.json
   def index
@@ -67,11 +67,21 @@ class BookkeepingsController < ApplicationController
 
   def add_proof
     proof = @bookkeeping.proofs.build picture: params[:file]
+    proof.user = current_user
     if proof.save
       render :json => proof
     else
       render json: {}, status: :unprocessable_entity
     end
+  end
+
+  def remove_proof
+    proof = @bookkeeping.proofs.find(params[:proof_id])
+    if proof.destroy
+      render :json => { success: true }
+    else
+      render json: {}, status: :unprocessable_entity
+    end  
   end
 
   private

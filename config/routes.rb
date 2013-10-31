@@ -11,6 +11,7 @@ Bbapi::Application.routes.draw do
       post 'add_proof',  on: :member
     end
   end
+  delete 'groups/:group_id/bookkeepings/:id/proofs/remove_proof/:proof_id' => 'bookkeepings#remove_proof'
   get 'groups/:id/users/:user_id/add' => 'groups#add'
   get 'groups/:id/users/:user_id/remove' => 'groups#remove'
 
