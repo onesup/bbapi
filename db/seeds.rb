@@ -18,6 +18,16 @@ users.each do |user|
 	GroupMember.create({ group: group, member: user })
 end
 
+User.create([
+    { email: 'kimhangi@bbapi.com', password: '12341234', username: '김한기'}, 
+    { email: 'KimDaekwon@bbapi.com', password: '12341234', username: '김대권'}, 
+    { email: 'euibeomLee@bbapi.com', password: '12341234', username: '이의범'}, 
+    { email: 'HyoseongChoi@bbapi.com', password: '12341234', username: '최효성'}, 
+    { email: 'yunyeonsik@bbapi.com', password: '12341234', username: '윤연식'}, 
+    { email: 'kimchungseop@bbapi.com', password: '12341234', username: '김충섭'}, 
+    { email: 'jaehuejang@bbapi.com', password: '12341234', username: '장재휴'}
+  ])
+
 account_categories = AccountCategory.create([
   { name: '자산'},
   { name: '자산'},

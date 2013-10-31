@@ -12,9 +12,13 @@ Bbapi::Application.routes.draw do
     end
   end
   delete 'groups/:group_id/bookkeepings/:id/proofs/remove_proof/:proof_id' => 'bookkeepings#remove_proof'
-  get 'groups/:id/users/:user_id/add' => 'groups#add'
-  get 'groups/:id/users/:user_id/remove' => 'groups#remove'
-
+  post 'groups/:id/users/:user_id' => 'groups#add'
+  delete 'groups/:id/users/:user_id' => 'groups#remove'
+  resources :users, only: [:index], :controller => 'users/users' do
+    collection do
+      get 'search'
+    end    
+  end
 
   post 'groups/:group_id/:commentable_type/:commentable_id/comments' => 'comments#create'
   delete 'groups/:group_id/:commentable_type/:commentable_id/comments/:comment_id' => 'comments#destroy'
@@ -25,6 +29,10 @@ Bbapi::Application.routes.draw do
   # get 'groups/:group_id/bookkeepings/:start_date/:end_date' => 'bookkeepings#term'
 
   devise_for :users, :controllers => { sessions: "users/sessions", registrations: "users/registrations", omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_scope :user do
+    post 'users/add_avatar'    => 'users/registrations#add_avatar',    as: :add_avatar
+    post 'users/remove_avatar' => 'users/registrations#remove_avatar', as: :remove_avatar
+  end
 
   # defaults: { :format => 'json' }
   # The priority is based upon order of creation: first created -> highest priority.
