@@ -3,8 +3,8 @@ class AccountTitlesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_account_title, except: [:index, :create]
 
-  # GET /account_titles
-  # GET /account_titles.json
+  # GET /groups/:group_id/account_titles
+  # GET /groups/:group_id/account_titles.json
   def index
     @group = Group.find(params[:group_id])
     
@@ -21,15 +21,14 @@ class AccountTitlesController < ApplicationController
     render json: @ret
   end
 
-  # GET /account_titles/1
-  # GET /account_titles/1.json
+  # GET /groups/:group_id/account_titles/1
+  # GET /groups/:group_id/account_titles/1.json
   def show
-
     render json: @account_title
   end
 
-  # POST /account_titles
-  # POST /account_titles.json
+  # POST /groups/:group_id/account_titles
+  # POST /groups/:group_id/account_titles.json
   def create
     @account_title = AccountTitle.new(account_title_params)
     @account_title.owner = current_user
@@ -41,8 +40,8 @@ class AccountTitlesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /account_titles/1
-  # PATCH/PUT /account_titles/1.json
+  # PATCH/PUT /groups/:group_id/account_titles/1
+  # PATCH/PUT /groups/:group_id/account_titles/1.json
   def update
 
 
@@ -53,8 +52,8 @@ class AccountTitlesController < ApplicationController
     end
   end
 
-  # DELETE /account_titles/1
-  # DELETE /account_titles/1.json
+  # DELETE /groups/:group_id/account_titles/1
+  # DELETE /groups/:group_id/account_titles/1.json
   def destroy
     @account_title.destroy
 
