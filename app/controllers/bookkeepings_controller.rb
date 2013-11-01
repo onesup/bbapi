@@ -58,8 +58,18 @@ class BookkeepingsController < ApplicationController
   def calculate
     start_date = params[:start_date]
     end_date = params[:end_date]
-    income = Group.find(params[:group_id]).bookkeepings.where("issue_date between ? and ?", start_date, end_date).where("operator = '+'").sum('amount')    
-    outlay = Group.find(params[:group_id]).bookkeepings.where("issue_date between ? and ?", start_date, end_date).where("operator = '-'").sum('amount')    
+    # income = Group.find(params[:group_id]).bookkeepings.where("issue_date between ? and ?", start_date, end_date).where("operator = '+'").sum('amount')    
+    # outlay = Group.find(params[:group_id]).bookkeepings.where("issue_date between ? and ?", start_date, end_date).where("operator = '-'").sum('amount')    
+
+    calc_query = Group.find(params[:group_id]).bookkeepings
+    if start_date.present?
+      calc_query = calc_query.where("issue_date > ?", start_date)
+    end
+    if end_date.present?
+      calc_query = calc_query.where("issue_date < ?", end_date)
+    end
+    income = calc_query.where("operator = '+'").sum('amount')
+    outlay = calc_query.where("operator = '-'").sum('amount')
     total = income - outlay
 
     render json: { income: income, outlay: outlay, total: total }
