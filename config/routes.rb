@@ -1,5 +1,6 @@
 Bbapi::Application.routes.draw do  
   resources :monthly_balances, except: [:new, :edit]
+  get 'bookkeepings/get_first_issue_date' => 'bookkeepings#get_first_issue_date'
   resources :bookkeepings, except: [:new, :edit]
   resources :account_titles, except: [:new, :edit]
   resources :account_categories, except: [:new, :edit]
@@ -19,7 +20,7 @@ Bbapi::Application.routes.draw do
       get 'search'
     end    
   end
-
+  get 'users/:id/membered_groups' => "users/users#membered_groups"
   post 'groups/:group_id/:commentable_type/:commentable_id/comments' => 'comments#create'
   delete 'groups/:group_id/:commentable_type/:commentable_id/comments/:comment_id' => 'comments#destroy'
 

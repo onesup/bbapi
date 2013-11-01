@@ -84,6 +84,10 @@ class BookkeepingsController < ApplicationController
     end  
   end
 
+  def get_first_issue_date
+    render :json => { issue_date: Bookkeeping.get_first_issue_date }
+  end
+
   private
 
   def set_group

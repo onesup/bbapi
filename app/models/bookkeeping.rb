@@ -9,4 +9,8 @@ class Bookkeeping < ActiveRecord::Base
   validates :group_id, presence: true
   validates :account_title_id, presence: true
   validates :writer_id, presence: true
+
+  def self.get_first_issue_date
+    Bookkeeping.select("issue_date").order("issue_date ASC").first.issue_date
+  end
 end
