@@ -2,11 +2,12 @@ Bbapi::Application.routes.draw do
   resources :monthly_balances, except: [:new, :edit]
   get 'bookkeepings/get_first_issue_date' => 'bookkeepings#get_first_issue_date'
   resources :bookkeepings, except: [:new, :edit]
-  resources :account_titles, except: [:new, :edit]
+
   resources :account_categories, except: [:new, :edit]
   # resources :comments, except: [:index, :new, :edit]
   resources :groups, except: [:new, :edit] do
     get 'list_members', on: :member
+    resources :account_titles
     resources :bookkeepings do 
       get 'calculate',  on: :collection
       post 'add_proof',  on: :member

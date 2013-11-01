@@ -6,19 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+account_categories = AccountCategory.create([
+  { name: '비용' },
+  { name: '수익' }
+])
+
 users = User.create([
     { email: 'tester1@bbapi.com', password: '12341234', username: 'tester1'}, 
-    { email: 'tester2@bbapi.com', password: '12341234', username: 'tester2'}
-  ])
-user = users[0]
-
-group = Group.create({ name: 'babi group', description: 'babi group', owner: user})
-
-users.each do |user|
-	GroupMember.create({ group: group, member: user })
-end
-
-User.create([
+    { email: 'tester2@bbapi.com', password: '12341234', username: 'tester2'},
     { email: 'kimhangi@bbapi.com', password: '12341234', username: '김한기'}, 
     { email: 'KimDaekwon@bbapi.com', password: '12341234', username: '김대권'}, 
     { email: 'euibeomLee@bbapi.com', password: '12341234', username: '이의범'}, 
@@ -27,14 +22,11 @@ User.create([
     { email: 'kimchungseop@bbapi.com', password: '12341234', username: '김충섭'}, 
     { email: 'jaehuejang@bbapi.com', password: '12341234', username: '장재휴'}
   ])
-
-account_categories = AccountCategory.create([
-  { name: '자산'},
-  { name: '자산'},
-  { name: '자산'},
-  { name: '자산'},
-  { name: '자산'},
-])
+group_owner = users[0]
+group = Group.create({ name: 'babi group', description: 'babi group', owner: group_owner})
+users.each do |user|
+	GroupMember.create({ group: group, member: user })
+end
 
 # income_categories = IncomeCategory.create([
 # 	{ name: '용돈', description: '용돈', owner: user}, 
