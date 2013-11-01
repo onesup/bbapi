@@ -63,10 +63,10 @@ class BookkeepingsController < ApplicationController
 
     calc_query = Group.find(params[:group_id]).bookkeepings
     if start_date.present?
-      calc_query = calc_query.where("issue_date > ?", start_date)
+      calc_query = calc_query.where("issue_date >= ?", start_date)
     end
     if end_date.present?
-      calc_query = calc_query.where("issue_date < ?", end_date)
+      calc_query = calc_query.where("issue_date < ?", Time.parse(end_date) + 1.day)
     end
     income = calc_query.where("operator = '+'").sum('amount')
     outlay = calc_query.where("operator = '-'").sum('amount')
