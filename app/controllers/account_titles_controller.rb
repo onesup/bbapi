@@ -1,13 +1,24 @@
 class AccountTitlesController < ApplicationController
 
+  before_action :authenticate_user!
   before_action :set_account_title, except: [:index, :create]
 
   # GET /account_titles
   # GET /account_titles.json
   def index
-    @account_titles = AccountTitle.all
+    @group = Group.find(params[:group_id])
+    
+    @ret = []
+    AccountCategory.all.each do |category|
+      @ret << {
+        category:category.name,
+        titles:@group.account_titles.where(account_category:category)
+      }
+    end
+    # 지출
 
-    render json: @account_titles
+    # 수입
+    render json: @ret
   end
 
   # GET /account_titles/1
