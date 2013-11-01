@@ -31,10 +31,9 @@ class AccountTitlesController < ApplicationController
   # POST /groups/:group_id/account_titles.json
   def create
     @account_title = AccountTitle.new(account_title_params)
-    @account_title.owner = current_user
 
     if @account_title.save
-      render json: @account_title, status: :created, location: @account_title
+      render json: @account_title
     else
       render json: @account_title.errors, status: :unprocessable_entity
     end
@@ -43,10 +42,8 @@ class AccountTitlesController < ApplicationController
   # PATCH/PUT /groups/:group_id/account_titles/1
   # PATCH/PUT /groups/:group_id/account_titles/1.json
   def update
-
-
     if @account_title.update(account_title_params)
-      head :no_content
+      render json: @account_title
     else
       render json: @account_title.errors, status: :unprocessable_entity
     end
@@ -55,9 +52,11 @@ class AccountTitlesController < ApplicationController
   # DELETE /groups/:group_id/account_titles/1
   # DELETE /groups/:group_id/account_titles/1.json
   def destroy
-    @account_title.destroy
-
-    head :no_content
+    if @account_title.destroy
+      render json: true
+    else
+      render json: @account_title.errors, status: :unprocessable_entity
+    end
   end
 
   private
@@ -66,6 +65,6 @@ class AccountTitlesController < ApplicationController
   end
 
   def account_title_params
-    params.require(:account_title).permit(:account_category_id, :title)
+    params.require(:account_title).permit(:account_category_id, :group_id, :title)
   end
 end
