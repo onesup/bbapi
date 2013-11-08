@@ -54,25 +54,6 @@ class User < ActiveRecord::Base
       self.authentication_token = generate_authentication_token
     end
   end
-
-  # Like Model
-  # Methods: like!, dislike!, liking?
-  def like!(bookkeeping)
-    likes.find_or_create_by!( likeable: bookkeeping)    
-  end
-
-  def dislike!(bookkeeping)
-    like = likes.find_by(likeable: bookkeeping)
-    like.destroy! unless like.nil?
-  end
-
-  def liking?(bookkeeping)
-    if bookkeeping.nil?
-      false
-    else
-      likes.find_by(likeable: bookkeeping).present?
-    end
-  end  
  
   private
   
