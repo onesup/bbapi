@@ -1,7 +1,13 @@
 Bbapi::Application.routes.draw do  
+
   resources :monthly_balances, except: [:new, :edit]
-  get 'bookkeepings/get_first_issue_date' => 'bookkeepings#get_first_issue_date'
-  resources :bookkeepings, except: [:new, :edit]
+  # get 'bookkeepings/get_first_issue_date' => 'bookkeepings#get_first_issue_date'
+  resources :bookkeepings, except: [:new, :edit] do
+    collection do
+      get 'get_first_issue_date'
+    end
+  end
+
 
   resources :account_categories, except: [:new, :edit]
   # resources :comments, except: [:index, :new, :edit]
@@ -11,6 +17,8 @@ Bbapi::Application.routes.draw do
     resources :bookkeepings do 
       get 'calculate',  on: :collection
       post 'add_proof',  on: :member
+      post 'like' => 'bookkeepings#like'
+      delete 'like' => 'bookkeepings#dislike'
     end
   end
   delete 'groups/:group_id/bookkeepings/:id/proofs/remove_proof/:proof_id' => 'bookkeepings#remove_proof'
@@ -25,8 +33,8 @@ Bbapi::Application.routes.draw do
   post 'groups/:group_id/:commentable_type/:commentable_id/comments' => 'comments#create'
   delete 'groups/:group_id/:commentable_type/:commentable_id/comments/:comment_id' => 'comments#destroy'
 
-  post 'users/:id/like' => 'users/users#like', as: :like_likeable
-  delete 'users/:id/like' => 'users/users#dislike', as: :dislike_likeable
+  # post 'users/:id/like' => 'users/users#like', as: :like_likeable
+  # delete 'users/:id/like' => 'users/users#dislike', as: :dislike_likeable
 
   # get 'groups/:id/members' => 'groups#list_members'
   # get 'groups/:group_id/bookkeepings/:start_date/:end_date/calculate' => 'bookkeepings#calculate'
