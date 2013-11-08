@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
   has_many :authorizations
   has_many :proofs, dependent: :destroy
 
+  # to declare associations for 'like' functionality
+  has_many :likes, dependent: :destroy
+  has_many :like_bookkeepings, class_name: 'Bookkeeping', through: :likes,
+           source: :likeable, source_type: 'Bookkeeping'  
+
   has_attached_file :avatar, 
                     :styles => { :medium => "300x300#", :thumb => "100x100#" }, 
                     :default_url => "/images/default/:style_avatar.png",
