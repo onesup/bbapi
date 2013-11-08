@@ -1,13 +1,13 @@
 module Likable	
 
-  def like!(current_user)
-  	Like.find_or_create_by!(likeable: self, user_id: current_user.id) do |like|
-  		like.user_id = current_user.id
+  def like!(liker)
+  	Like.find_or_create_by!(likeable: self, liker: liker) do |like|
+  		like.liker = liker
   	end
   end
 
-  def dislike!(current_user)
-  	like = Like.find_by(likeable: self, user_id: current_user.id)  	
+  def dislike!(liker)
+  	like = Like.find_by(likeable: self, liker: liker)  	
   	like.destroy! if like
   end
 
