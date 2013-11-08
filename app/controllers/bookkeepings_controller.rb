@@ -98,6 +98,22 @@ class BookkeepingsController < ApplicationController
     render :json => { issue_date: Bookkeeping.get_first_issue_date }
   end
 
+  def like    
+    bookkeeping = Bookkeeping.find(params['bookkeeping_id']) unless  params['bookkeeping_id'].nil?        
+    unless bookkeeping.nil?
+      bookkeeping.like! current_user
+      render json: { result: "success"}
+    end
+  end
+
+  def dislike
+    bookkeeping = Bookkeeping.find(params['bookkeeping_id']) unless  params['bookkeeping_id'].nil?    
+    unless bookkeeping.nil?
+      bookkeeping.dislike! current_user
+      render json: { result: "success"}
+    end
+  end
+
   private
 
   def set_group
@@ -111,5 +127,5 @@ class BookkeepingsController < ApplicationController
 
   def bookkeeping_params
     params.require(:bookkeeping).permit(:group_id, :issue_date, :issuer_id, :operator, :account_title_id, :remark, :amount, :content, :proofs)
-  end
+  end  
 end

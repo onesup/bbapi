@@ -1,8 +1,12 @@
+
 class Bookkeeping < ActiveRecord::Base
   belongs_to :issuer, class_name: 'User'
   belongs_to :writer, class_name: 'User'
   belongs_to :account_title
   belongs_to :group
+  
+  include Likable  
+
   has_many :proofs, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
