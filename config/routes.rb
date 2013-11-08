@@ -25,8 +25,8 @@ Bbapi::Application.routes.draw do
   post 'groups/:group_id/:commentable_type/:commentable_id/comments' => 'comments#create'
   delete 'groups/:group_id/:commentable_type/:commentable_id/comments/:comment_id' => 'comments#destroy'
 
-  post 'users/:id/like/:likeable_type/:likeable_id' => 'users/users#like', as: :like_likeable
-  delete 'users/:id/like/:likeable_type/:likeable_id' => 'users/users#dislike', as: :dislike_likeable
+  post 'users/:id/like' => 'users/users#like', as: :like_likeable
+  delete 'users/:id/like' => 'users/users#dislike', as: :dislike_likeable
 
   # get 'groups/:id/members' => 'groups#list_members'
   # get 'groups/:group_id/bookkeepings/:start_date/:end_date/calculate' => 'bookkeepings#calculate'
