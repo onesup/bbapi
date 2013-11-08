@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
   has_many :authorizations
   has_many :proofs, dependent: :destroy
 
+  # to declare associations for 'like' functionality
+  has_many :likes, dependent: :destroy
+  has_many :like_bookkeepings, class_name: 'Bookkeeping', through: :likes,
+           source: :likeable, source_type: 'Bookkeeping'  
+
   has_attached_file :avatar, 
                     :styles => { :medium => "300x300#", :thumb => "100x100#" }, 
                     :default_url => "/images/default/:style_avatar.png",
@@ -49,6 +54,25 @@ class User < ActiveRecord::Base
       self.authentication_token = generate_authentication_token
     end
   end
+
+  # Like Model
+  # Methods: like!, dislike!, liking?
+  def like!(bookkeeping)
+    likes.find_or_create_by!( likeable: bookkeeping)    
+  end
+
+  def dislike!(bookkeeping)
+    like = likes.find_by(likeable: bookkeeping)
+    like.destroy! unless like.nil?
+  end
+
+  def liking?(bookkeeping)
+    if bookkeeping.nil?
+      false
+    else
+      likes.find_by(likeable: bookkeeping).present?
+    end
+  end  
  
   private
   
