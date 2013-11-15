@@ -4,6 +4,4 @@ class Comment < ActiveRecord::Base
 
   # 유효성 검증 => writer_id, commentable_id 는 필수항목임
   validates_presence_of :writer_id , :commentable_id
-
-  paginates_per 3
 end
